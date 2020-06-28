@@ -88,6 +88,43 @@ reducer(5, decr())
 // 4
 ```
 
+### createSlice({ name, initialState, reducers?, extraReducers? })
+
+```javascript
+import { createSlice, createAsyncAction } from 'duxkit'
+
+const setAsync = createAsyncAction('counter/setAsync', async (value = 0) => {
+  return Promise.resolve(value)
+})
+
+const counter = createSlice({
+  name: 'counter',
+  initialState: 0,
+  reducers: {
+    incr: (state) => state + 1,
+    decr: (state) => state - 1,
+  },
+  extraReducers: {
+    [`${setAsync}/pending`]: (state) => 0,
+    [`${setAsync}/rejected`]: (state) => -1,
+    [`${setAsync}/fulfilled`]: (state, action) => action.payload,
+  },
+})
+// { name: counter, actions: { incr(), decr() }, reducer() }
+
+counter.actions.incr()
+// { type: 'counter/incr' }
+
+counter.actions.decr()
+// { type: 'counter/decr' }
+
+counter.reducer(undefined, counter.actions.incr())
+// 1
+
+counter.reducer(1, { type: 'counter/setAsync/fulfilled', payload: 42 })
+// 42
+```
+
 ## Differences to Redux Toolkit
 
 | change  | name                       | desc                                  |

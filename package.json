@@ -1,5 +1,4 @@
 {
-  "private": true,
   "name": "duxkit",
   "version": "0.1.0",
   "description": "A simple redux toolkit",

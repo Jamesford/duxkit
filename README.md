@@ -4,6 +4,15 @@
 
 Inspired by the [official redux-toolkit](https://redux-toolkit.js.org/).
 
+- [Installation](#installation)
+- [Usage](#usage)
+  - [createAction()](#createaction)
+  - [createAsyncAction()](#createasyncaction)
+  - [createReducer()](#createreducer)
+  - [createSlice()](#createslice)
+  - [miniStore()](#ministore)
+- [Differences to Redux Toolkit](#differences-to-redux-toolkit)
+
 ## Installation
 
 ### npm or yarn
@@ -24,7 +33,9 @@ A goal of duxkit is to be simple enough to be able to just copy and paste the so
 
 ## Usage
 
-### createAction(type, customAction?)
+### createAction()
+
+`createAction(type, customAction?)`
 
 ```javascript
 import { createAction } from 'duxkit'
@@ -42,9 +53,9 @@ actionCreator('abc')
 // { type: 'myCustom', payload: 'cba' }
 ```
 
-### createAsyncAction(type, asyncAction)
+### createAsyncAction()
 
-`createAsyncAction()` returns a thunk, not an action. Use with `store.dispatch()`.
+`createAsyncAction(type, asyncAction)`
 
 ```javascript
 import { createAsyncAction } from 'duxkit'
@@ -65,7 +76,11 @@ dispatch(actionCreator(0))
 // { type: 'fetchUser/rejected', payload: Error{ message: 'demo error' } }
 ```
 
-### createReducer(initialState, actionHandlers)
+`createAsyncAction()` returns a thunk, not an action. Use with `store.dispatch()`.
+
+### createReducer()
+
+`createReducer(initialState, actionHandlers)`
 
 ```javascript
 import { createReducer, createAction } from 'duxkit'
@@ -88,7 +103,9 @@ reducer(5, decr())
 // 4
 ```
 
-### createSlice({ name, initialState, reducers?, extraReducers? })
+### createSlice()
+
+`createSlice({ name, initialState, reducers?, extraReducers? })`
 
 ```javascript
 import { createSlice, createAsyncAction } from 'duxkit'
@@ -125,7 +142,9 @@ counter.reducer(1, { type: 'counter/setAsync/fulfilled', payload: 42 })
 // 42
 ```
 
-### miniStore(reducer)
+### miniStore()
+
+`miniStore(reducer)`
 
 ```javascript
 import { miniStore, createSlice } from 'duxkit'

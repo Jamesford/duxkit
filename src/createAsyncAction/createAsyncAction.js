@@ -1,6 +1,6 @@
 import { createAction } from '../createAction/createAction'
 
-export function createAsyncAction(type, payloadCreator) {
+export function createAsyncAction(type, asyncAction) {
   const pending = createAction(`${type}/pending`)
   const fulfilled = createAction(`${type}/fulfilled`)
   const rejected = createAction(`${type}/rejected`)
@@ -8,7 +8,7 @@ export function createAsyncAction(type, payloadCreator) {
   const actionCreator = (arg) => {
     return (dispatch, getState) => {
       dispatch(pending())
-      payloadCreator(arg, { dispatch, getState })
+      asyncAction(arg, { dispatch, getState })
         .then((...args) => dispatch(fulfilled(...args)))
         .catch((...args) => dispatch(rejected(...args)))
     }

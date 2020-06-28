@@ -24,23 +24,25 @@ A goal of duxkit is to be simple enough to be able to just copy and paste the so
 
 ## Usage
 
-### createAction()
+### createAction(type, customAction?)
 
 ```javascript
 import { createAction } from 'duxkit'
 
 const actionCreator = createAction('myAction')
+
 actionCreator('myPayload')
 // { type: 'myAction', payload: 'myPayload' }
 
 const customActionCreator = createAction('myCustom', (str = '') =>
   str.split('').reverse().join('')
 )
+
 actionCreator('abc')
 // { type: 'myCustom', payload: 'cba' }
 ```
 
-### createAsyncAction()
+### createAsyncAction(type, asyncAction)
 
 `createAsyncAction()` returns a thunk, not an action. Use with `store.dispatch()`.
 
@@ -53,6 +55,7 @@ const actionCreator = createAsyncAction('fetchUser', async (id) => {
   }
   await getUserById(id) // { id: 123, name: 'Joe' }
 })
+
 dispatch(actionCreator(123))
 // { type: 'fetchUser/pending' }
 // { type: 'fetchUser/fulfilled', payload: { id: 123, name: 'Joe' } }
@@ -60,6 +63,29 @@ dispatch(actionCreator(123))
 dispatch(actionCreator(0))
 // { type: 'fetchUser/pending' }
 // { type: 'fetchUser/rejected', payload: Error{ message: 'demo error' } }
+```
+
+### createReducer(initialState, actionHandlers)
+
+```javascript
+import { createReducer, createAction } from 'duxkit'
+
+const decr = createAction('decr')
+
+const initialState = 0
+
+const actionHandlers = {
+  incr: (state) => state + 1,
+  [decr]: (state) => state - 1,
+}
+
+const reducer = createReducer(initialState, actionHandlers)
+
+reducer(undefined, { type: 'incr' })
+// 1
+
+reducer(5, decr())
+// 4
 ```
 
 ## Differences to Redux Toolkit

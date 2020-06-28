@@ -24,7 +24,7 @@ A goal of duxkit is to be simple enough to be able to just copy and paste the so
 
 ## Usage
 
-`createAction()`
+### createAction()
 
 ```javascript
 import { createAction } from 'duxkit'
@@ -38,6 +38,28 @@ const customActionCreator = createAction('myCustom', (str = '') =>
 )
 actionCreator('abc')
 // { type: 'myCustom', payload: 'cba' }
+```
+
+### createAsyncAction()
+
+`createAsyncAction()` returns a thunk, not an action. Use with `store.dispatch()`.
+
+```javascript
+import { createAsyncAction } from 'duxkit'
+
+const actionCreator = createAsyncAction('fetchUser', async (id) => {
+  if (id === 0) {
+    throw new Error('demo error')
+  }
+  await getUserById(id) // { id: 123, name: 'Joe' }
+})
+dispatch(actionCreator(123))
+// { type: 'fetchUser/pending' }
+// { type: 'fetchUser/fulfilled', payload: { id: 123, name: 'Joe' } }
+
+dispatch(actionCreator(0))
+// { type: 'fetchUser/pending' }
+// { type: 'fetchUser/rejected', payload: Error{ message: 'demo error' } }
 ```
 
 ## Differences to Redux Toolkit

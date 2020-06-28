@@ -1,4 +1,5 @@
-import { createAction, createAsyncAction } from './createAction/createAction'
+import { createAction } from './createAction/createAction'
+import { createAsyncAction } from './createAsyncAction/createAsyncAction'
 import { createReducer } from './createReducer/createReducer'
 import { createSlice } from './createSlice/createSlice'
 import { miniStore } from './miniStore/miniStore'

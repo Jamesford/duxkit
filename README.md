@@ -125,14 +125,50 @@ counter.reducer(1, { type: 'counter/setAsync/fulfilled', payload: 42 })
 // 42
 ```
 
+### miniStore(reducer)
+
+```javascript
+import { miniStore, createSlice } from 'duxkit'
+
+const counter = createSlice({
+  name: 'counter',
+  initialState: 0,
+  reducers: {
+    incr: (state) => state + 1,
+    decr: (state) => state - 1,
+  },
+})
+// { name: counter, actions: { incr(), decr() }, reducer() }
+
+const store = miniStore(counter.reducer)
+
+store.getState()
+// 0
+
+const unsub = store.subscribe((state) => {
+  console.log(state)
+})
+
+store.dispatch(counter.actions.incr())
+// console.log: 1
+
+store.dispatch(counter.actions.decr())
+// console.log: 0
+
+unsub()
+
+store.dispatch(counter.actions.decr())
+// console.log not called
+```
+
 ## Differences to Redux Toolkit
 
-| change  | name                       | desc                                  |
-| :------ | :------------------------- | :------------------------------------ |
-| removed | `createAsyncThunk()`       | renamed to `createAsyncAction()`      |
-| added   | `createAsyncAction()`      | renamed from `createAsyncThunk()`     |
-| added   | `miniStore()`              | simple redux store with thunk support |
-| changed | `createReducer()`          | removed immer                         |
-| removed | `configureStore()`         |                                       |
-| removed | `createEntityAdapter()`    |                                       |
-| removed | `createSelector` re-export |                                       |
+| Status  | Name                    | Description                           |
+| :------ | :---------------------- | :------------------------------------ |
+| removed | `createAsyncThunk()`    | renamed to `createAsyncAction()`      |
+| added   | `createAsyncAction()`   | renamed from `createAsyncThunk()`     |
+| added   | `miniStore()`           | simple redux store with thunk support |
+| changed | `createReducer()`       | removed immer                         |
+| removed | `configureStore()`      |                                       |
+| removed | `createEntityAdapter()` |                                       |
+| removed | `createSelector`        | not re-exported                       |

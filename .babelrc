@@ -1,0 +1,17 @@
+{
+  "presets": [
+    [
+      "@babel/env",
+      {
+        "targets": {
+          "browsers": ["ie >= 11"]
+        },
+        "exclude": [
+          "@babel/plugin-transform-async-to-generator",
+          "@babel/plugin-transform-regenerator"
+        ],
+        "modules": false
+      }
+    ]
+  ]
+}

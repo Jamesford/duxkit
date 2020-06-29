@@ -4,7 +4,6 @@
   "files.trimTrailingWhitespace": true,
   "editor.tabSize": 2,
   "editor.insertSpaces": true,
-  "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
   "[javascript]": {
     "editor.formatOnSave": true

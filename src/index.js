@@ -1,8 +1,8 @@
-import { createAction } from './createAction/createAction'
-import { createAsyncAction } from './createAsyncAction/createAsyncAction'
-import { createReducer } from './createReducer/createReducer'
-import { createSlice } from './createSlice/createSlice'
-import { miniStore } from './miniStore/miniStore'
+import { createAction } from './createAction'
+import { createAsyncAction } from './createAsyncAction'
+import { createReducer } from './createReducer'
+import { createSlice } from './createSlice'
+import { miniStore } from './miniStore'
 
 export {
   createAction,

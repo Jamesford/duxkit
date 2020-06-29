@@ -1,4 +1,4 @@
-import { createAction } from '../createAction/createAction'
+import { createAction } from './createAction'
 
 export function createAsyncAction(type, asyncAction) {
   const pending = createAction(`${type}/pending`)
